@@ -1,7 +1,7 @@
 .drum-machine {
   background: #D4ADFC;
   padding: 40px;
-  display: flex;
+  /* display: flex; */
   border-radius: 15px;
   border: 5px solid yellow;
 }
@@ -24,12 +24,27 @@ body{
   border-radius: 5%;
 }
 .drum-pad{
-  width: 30%;
   margin: 5px;
 }
 
 .pad-bank{
   aspect-ratio: 1/1;
-  display:flex;
-  flex-wrap: wrap;
+  display:grid;
+  gap: 0;
+  grid-template-columns: repeat(3, 1fr);
+  min-width: 400px;
+
+}
+
+.display{
+  font-size: 2em;
+  text-transform: uppercase;
+  background-color: #1c2362;
+  color: white;
+  margin: 5px;
+  padding: 5px 15px;
+  text-align: center;
+  font-weight:bold;
+  border: 2px solid #5C469C;
+  border-radius: 10px;
 }

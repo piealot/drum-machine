@@ -1,61 +1,130 @@
-import { useEffect } from "react";
+import { useEffect, useCallback ,useState} from "react";
 import "./App.css";
 
 function App() {
+
+  const [lastSound, setLastSound] = useState("");
+
+  // handle what happens on key press
+  const handleKeyPress = useCallback((event) => {
+    if(getSound(event.key)){
+      playSound(getSound(event.key), setLastSound);
+    }
+    
+  }, []);
+
+  useEffect(() => {
+    // attach the event listener
+    document.addEventListener('keydown', handleKeyPress);
+
+    // remove the event listener
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
+
   let audio = document.getElementById("audio");
   return (
     <div className="drum-machine" id="drum-machine">
       <div className="pad-bank" id="pad-bank">
-        <DrumPad />
-        <DrumPad />
-        <DrumPad />
-        <DrumPad />
-        <DrumPad />
-        <DrumPad />
-        <DrumPad />
-        <DrumPad />
-        <DrumPad />
+        <DrumPad type="chord1" setLast={setLastSound}/>
+        <DrumPad type="chord2" setLast={setLastSound}/>
+        <DrumPad type="chord3" setLast={setLastSound}/>
+        <DrumPad type="shaker" setLast={setLastSound}/>
+        <DrumPad type="openHH" setLast={setLastSound}/>
+        <DrumPad type="HH" setLast={setLastSound}/>
+        <DrumPad type="kick" setLast={setLastSound}/>
+        <DrumPad type="rim" setLast={setLastSound}/>
+        <DrumPad type="snare" setLast={setLastSound}/>
       </div>
-      <Display />
-      <Input />
+      <Display last={lastSound}/>
     </div>
   );
 }
 
-function DrumPad() {
+function DrumPad(props, setLast) {
+  const fileName = props.type + "audio";
   return (
-    <div className="drum-pad" id="drum-pad">
+    <div className="drum-pad" id={getKey(props.type)}>
       <button
         onClick={() => {
-          document.getElementById("audio").currentTime = 0;
-          document.getElementById("audio").play();
+          playSound(props.type, props.setLast);
         }}
-        class="drum-pad-button"
+        className="drum-pad-button"
       >
-        Play
+        {getKey(props.type)}
       </button>
-      <audio id="audio">
-        <source src="RP4_KICK_1.mp3" type="audio/mpeg" />
+      <audio id={fileName}>
+        <source src={props.type + ".mp3"} type="audio/mpeg" />
       </audio>
     </div>
   );
 }
 
-function Display() {
+function Display(props) {
   return (
     <div class="display" id="display">
-      Last sound
+      {props.last}
     </div>
   );
 }
 
-function handleKeyDown(event) {
-  if (event.key === "Enter") {
-    console.log("enter");
+function getKey(sound) {
+  switch (sound) {
+    case "chord1":
+      return "q";
+    case "chord2":
+      return "w";
+    case "chord3":
+      return "e";
+    case "shaker":
+      return "a";
+    case "openHH":
+      return "s";
+    case "HH":
+      return "d";
+    case "kick":
+      return "z";
+    case "rim":
+      return "x";
+    case "snare":
+      return "c";
+    default:
+      return undefined;
   }
 }
-function Input() {
-  return <input onKeyDown={handleKeyDown} />;
+
+function getSound(key) {
+  switch (key) {
+    case "q":
+      return "chord1";
+    case "w":
+      return "chord2";
+    case "e":
+      return "chord3";
+    case "a":
+      return "shaker";
+    case "s":
+      return "openHH";
+    case "d":
+      return "HH";
+    case "z":
+      return "kick";
+    case "x":
+      return "rim";
+    case "c":
+      return "snare";
+    default:
+      return undefined;
+  }
+}
+
+function playSound(sound, setLast) {
+  let fileName = sound + "audio";
+  setLast(sound);
+
+  document.getElementById(fileName).currentTime = 0;
+  document.getElementById(fileName).play();
 }
 
 export default App;
