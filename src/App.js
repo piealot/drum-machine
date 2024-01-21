@@ -53,8 +53,8 @@ function DrumPad(props, setLast) {
       >
         {getKey(props.type)}
       </button>
-      <audio id={fileName}>
-        <source src={props.type + ".mp3"} type="audio/mpeg" />
+      <audio id={getKey(props.type)}>
+        <source className="clip" src={props.type + ".mp3"} type="audio/mpeg" />
       </audio>
     </div>
   );
