@@ -71,23 +71,23 @@ function Display(props) {
 function getKey(sound) {
   switch (sound) {
     case "chord1":
-      return "q";
+      return "Q";
     case "chord2":
-      return "w";
+      return "W";
     case "chord3":
-      return "e";
+      return "E";
     case "shaker":
-      return "a";
+      return "A";
     case "openHH":
-      return "s";
+      return "S";
     case "HH":
-      return "d";
+      return "D";
     case "kick":
-      return "z";
+      return "Z";
     case "rim":
-      return "x";
+      return "X";
     case "snare":
-      return "c";
+      return "C";
     default:
       return undefined;
   }
@@ -95,23 +95,23 @@ function getKey(sound) {
 
 function getSound(key) {
   switch (key) {
-    case "q":
+    case "Q":
       return "chord1";
-    case "w":
+    case "W":
       return "chord2";
-    case "e":
+    case "E":
       return "chord3";
-    case "a":
+    case "A":
       return "shaker";
-    case "s":
+    case "S":
       return "openHH";
-    case "d":
+    case "D":
       return "HH";
-    case "z":
+    case "Z":
       return "kick";
-    case "x":
+    case "X":
       return "rim";
-    case "c":
+    case "C":
       return "snare";
     default:
       return undefined;
