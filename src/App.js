@@ -23,7 +23,6 @@ function App() {
     };
   }, [handleKeyPress]);
 
-  let audio = document.getElementById("audio");
   return (
     <div className="drum-machine" id="drum-machine">
       <div className="pad-bank" id="pad-bank">
