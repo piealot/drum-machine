@@ -42,20 +42,17 @@ function App() {
 }
 
 function DrumPad(props, setLast) {
-  const fileName = props.type + "audio";
   return (
-    <div className="drum-pad" id={getKey(props.type)}>
-      <button
-        onClick={() => {
-          playSound(props.type, props.setLast);
-        }}
-        className="drum-pad-button"
-      >
+    <div onClick={() => {
+      playSound(props.type, props.setLast);
+    }} className="drum-pad" id={props.type}>
+      
         {getKey(props.type)}
-      </button>
-      <audio id={getKey(props.type)}>
-        <source className="clip" src={props.type + ".mp3"} type="audio/mpeg" />
+
+        <audio className="clip" controls id={getKey(props.type) }>
+          <source src={props.type + ".mp3"} type="audio/mpeg"></source>
       </audio>
+      
     </div>
   );
 }
@@ -119,7 +116,7 @@ function getSound(key) {
 }
 
 function playSound(sound, setLast) {
-  let fileName = sound + "audio";
+  let fileName = getKey(sound);
   setLast(sound);
 
   document.getElementById(fileName).currentTime = 0;
