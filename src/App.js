@@ -5,19 +5,18 @@ function App() {
 
   const [lastSound, setLastSound] = useState("");
 
-  // handle what happens on key press
   const handleKeyPress = useCallback((event) => {
-    if(getSound(event.key)){
-      playSound(getSound(event.key), setLastSound);
+    const key = (event.key).toUpperCase();
+    if(getSound(key)){
+      console.log("hello");
+      playSound(getSound(key), setLastSound);
     }
     
   }, []);
 
   useEffect(() => {
-    // attach the event listener
     document.addEventListener('keydown', handleKeyPress);
 
-    // remove the event listener
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
@@ -47,10 +46,9 @@ function DrumPad(props, setLast) {
       playSound(props.type, props.setLast);
     }} className="drum-pad" id={props.type}>
       
-        {getKey(props.type)}
+        <p>{getKey(props.type)}</p>
 
-        <audio className="clip" controls id={getKey(props.type) }>
-          <source src={props.type + ".mp3"} type="audio/mpeg"></source>
+        <audio className="clip" id={getKey(props.type)} src={process.env.PUBLIC_URL +"/" + props.type + ".mp3"}>
       </audio>
       
     </div>
@@ -116,11 +114,11 @@ function getSound(key) {
 }
 
 function playSound(sound, setLast) {
-  let fileName = getKey(sound);
+  const fileName = getKey(sound);
+  const audio = document.getElementById(fileName);
   setLast(sound);
-
-  document.getElementById(fileName).currentTime = 0;
-  document.getElementById(fileName).play();
+  audio.currentTime = 0;
+  audio.play();
 }
 
 export default App;

@@ -22,6 +22,9 @@ body{
   border: none;
   border-radius: 5%;
   margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .pad-bank{
@@ -44,4 +47,5 @@ body{
   font-weight:bold;
   border: 2px solid #5C469C;
   border-radius: 10px;
+  min-height: 2.5em;
 }
